@@ -1,0 +1,236 @@
+html {
+	font-size: 10px;
+}
+
+article {
+	min-height: calc(100% - 116px);
+	padding-top: 80px;
+	padding: 80px 10px 0;
+	max-width: 960px;
+	margin: 0 auto;
+	background-color: #fff;
+}
+
+article>section {
+	position: relative;
+	/*overflow: hidden;*/
+}
+
+div.content {
+	margin-left: 260px;
+	overflow: hidden;
+}
+
+div.tree {
+	border: 1px solid #ddd;
+	border-top: none;
+	width: 230px;
+	float: left;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+
+div.tree ul {
+	height: 0;
+	overflow: hidden;
+}
+
+div.tree>ul,
+li.active>ul {
+	height: auto;
+}
+
+.tree-node {
+	/*display: none;*/
+	cursor: pointer;
+	padding: 10px 0;
+	font-size: 15px;
+	font-size: 1.5rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	border-top: 1px solid #ddd;
+	background-color: white;
+}
+
+.tree .tree-node:hover {
+	background-color: #f5f5f5;
+}
+
+.tree-node:before {
+	content: '+';
+	display: inline-block;
+	text-align: center;
+	width: 20px;
+}
+
+.active>.tree-node:before {
+	content: '-';
+}
+
+.no-child.tree-node:before {
+	content: ' ';
+}
+
+.tree-node.L1 {
+	padding-left: 5px;
+}
+
+.tree-node.L2 {
+	padding-left: 20px;
+}
+
+.tree-node.L3 {
+	padding-left: 35px;
+}
+
+.tree-node.L4 {
+	padding-left: 50px;
+}
+
+.tree-node.L5 {
+	padding-left: 65px;
+}
+
+.tree-node.L6 {
+	padding-left: 80px;
+}
+
+.active>.tree-node.L1 {
+	color: rgb(145, 224, 211);
+}
+
+.active>.tree-node.L2 {
+	color: rgb(124, 217, 203);
+}
+
+.active>.tree-node.L3 {
+	color: rgb(102, 211, 194);
+}
+
+.active>.tree-node.L4 {
+	color: rgb(80, 205, 185);
+}
+
+.active>.tree-node.L5 {
+	color: rgb(58, 199, 176);
+}
+
+.active>.tree-node.L6 {
+	color: rgb(36, 192, 168);
+}
+
+.active>.tree-node.no-child {
+	background-color: rgb(14, 186, 159);
+	color: white;
+}
+
+#close-tree {
+	display: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	color: white;
+	cursor: pointer;
+	padding: 10px;
+	font-size: 15px;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+.c-top {
+	overflow: hidden;
+}
+
+.c-top .tab {
+	font-family: "microsoft yahei";
+	float: left;
+	height: 42px;
+	font-size: 16px;
+	font-size: 1.6rem;
+	line-height: 42px;
+	font-weight: bold;
+	color: rgb(164, 224, 224);
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.tab .select-icon {
+	display: inline-block;
+	width: 20px;
+	height: 42px;
+}
+
+
+/*--------------*/
+
+.c-bookmarks-list {
+	padding-top: 0px;
+}
+
+.c-bookmarks-list li {}
+
+.c-bookmarks-list li:nth-child(5n) {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.c-bookmarks-list a {
+	display: inline-block;
+	width: 100%;
+	line-height: 1.6em;
+	font-size: 16px;
+	font-size: 1.6rem;
+}
+
+@media only screen and (max-width: 700px) {
+	html {
+		font-size: 12px;
+	}
+	article {
+		min-height: calc(100% - 106px);
+		padding-top: 70px;
+	}
+	div.tree {
+		display: none;
+		float: none;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, .7);
+		border: none;
+		z-index: 3;
+		padding: 5px;
+		padding-bottom: 55px;
+		width: calc(100% - 10px);
+	}
+	div.tree>ul {
+		overflow: auto;
+		height: 100%;
+	}
+	div.tree>ul>li {
+		border-left: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+	}
+	div.tree>ul>li:last-child {
+		border: 1px solid #ddd;
+	}
+	#close-tree {
+		position: fixed;
+		bottom: 5px;
+		left: 5px;
+		right: 5px;
+	}
+	div.content {
+		margin-left: 0;
+	}
+	.c-top .tab {
+		background-image: url(../img/select.png);
+		background-repeat: no-repeat;
+		background-size: 20px;
+		background-position: 43px 11px;
+		padding-right: 30px;
+	}
+}

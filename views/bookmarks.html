@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<title>个人书签列表</title>
+		<link rel="stylesheet" href="css/reset1.3.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/bookmarks.css" />
+	</head>
+
+	<body>
+		<nav class="show-bg">
+			<ul>
+				<li>
+					<a href="/">主页</a>
+				</li>
+				<li>
+					<a href="/bookmarks">个人书签</a>
+				</li>
+			</ul>
+		</nav>
+		<article>
+			<section class="fixclear">
+				<div id="tree" class="tree">
+					<ul>
+						<li>
+							<div class="tree-node L1 no-child">
+								常用
+							</div>
+						</li>
+						<li>
+							<div class="tree-node L1 no-child">
+								全部
+							</div>
+						</li>
+						<li class="active">
+							<div class="tree-node L1">
+								前端1
+							</div>
+							<ul>
+								<li>
+									<div class="tree-node L2 no-child">
+										HTML2
+									</div>
+								</li>
+								<li class="active">
+									<div class="tree-node L2">
+										CSS2
+									</div>
+									<ul>
+										<li>
+											<div class="tree-node L3 no-child">
+												icon3
+											</div>
+										</li>
+										<li class="active">
+											<div class="tree-node L3">
+												color3
+											</div>
+											<ul>
+												<li class="active">
+													<div class="tree-node L4">
+														CSS4
+													</div>
+													<ul>
+														<li>
+															<div class="tree-node L5 no-child">
+																icon5
+															</div>
+														</li>
+														<li class="active">
+															<div class="tree-node L5">
+																color5
+															</div>
+															<ul>
+																<li class="active">
+																	<div class="tree-node L6 no-child">
+																		color6
+																	</div>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+
+							</ul>
+						</li>
+						<li>
+							<div class="tree-node L1">
+								后端1
+							</div>
+							<ul>
+								<li>
+									<div class="tree-node L2 no-child">
+										HTML2
+									</div>
+								</li>
+								<li>
+									<div class="tree-node L2">
+										CSS2
+									</div>
+									<ul>
+										<li>
+											<div class="tree-node L3 no-child">
+												icon3
+											</div>
+										</li>
+										<li>
+											<div class="tree-node L3">
+												color3
+											</div>
+											<ul>
+												<li>
+													<div class="tree-node L4">
+														CSS4
+													</div>
+													<ul>
+														<li>
+															<div class="tree-node L5 no-child">
+																icon5
+															</div>
+														</li>
+														<li>
+															<div class="tree-node L5">
+																color5
+															</div>
+															<ul>
+																<li>
+																	<div class="tree-node L6 no-child">
+																		color6
+																	</div>
+																</li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+
+							</ul>
+						</li>
+					</ul>
+					<div id="close-tree">
+						关闭
+					</div>
+				</div>
+				<div class="content">
+					<div class="c-top">
+						<span class="tab" id="tab">
+							全部
+						</span>
+						<div class="search">
+							<input type="text" placeholder="Search" /><span style="background-image: url(img/search.png);"></span>
+						</div>
+					</div>
+					<div class="c-bookmarks-list">
+						<ul>
+							<li>
+								<a class="single-line" href="https://www.baidu.com/" target="_blank">1.书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1</a>
+							</li>
+							<li>
+								<a href="#">2.书签2</a>
+							</li>
+							<li>
+								<a href="#">3.书签3</a>
+							</li>
+							<li>
+								<a href="#">4.书签4</a>
+							</li>
+							<li>
+								<a href="#">1.书签1</a>
+							</li>
+							<li>
+								<a href="#">2.书签2</a>
+							</li>
+							<li>
+								<a href="#">3.书签3</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</section>
+		</article>
+		<footer>
+			<div>
+				版权所有&copy;helloyoucan
+			</div>
+		</footer>
+		<div id="back-to-top" style="background-image: url(img/back-to-top.png);"></div>
+		<script type="text/javascript" src="js/utility.js"></script>
+		<script type="text/javascript" src="js/pubilc.js"></script>
+		<script type="text/javascript" src="js/bookmarks.js"></script>
+	</body>
+
+</html>

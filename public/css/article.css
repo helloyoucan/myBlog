@@ -1,0 +1,249 @@
+html {
+	font-size: 10px;
+}
+
+html,
+body,
+nav ul {
+	margin: 0;
+}
+
+nav li {
+	list-style: none;
+}
+
+nav a:link,
+nav a:visited,
+.ras-list a:link,
+.ras-list a:visited {
+	text-decoration: none;
+}
+
+nav a:link,
+nav a:visited,
+.article>h1,
+.article>h2,
+.a-tags-list .a-tag,
+.a-msg,
+.end,
+.comment,
+.comment textarea,
+.comments-list,
+.related-articles,
+footer {
+	font-family: "微软雅黑";
+}
+
+.content {
+	min-height: calc(100% - 136px);
+	max-width: 940px;
+	margin: 0 auto;
+	padding: 80px 10px 20px;
+	overflow: hidden;
+}
+
+.content .article {
+	max-width: 640px;
+	padding: 10px;
+	float: left;
+	width: calc(66.66% - 20px);
+}
+
+.article h1 {
+	font-size: 24px;
+	font-size: 2.4rem;
+	margin: 0;
+}
+
+.a-tags-list {
+	padding: 5px 0 3px;
+}
+
+.a-tags-list .a-tag {
+	font-size: 12px;
+	/*font-size: 1.2rem;*/
+	display: inline-block;
+	color: rgb(14, 186, 159);
+	background-color: white;
+	border: 1px solid rgb(14, 186, 159);
+	padding: 2px 4px;
+	border-radius: 5px;
+}
+
+.a-msg {
+	font-size: 12px;
+	font-size: 1.2rem;
+	color: #555;
+}
+
+.a-read,
+.a-comments {
+	display: inline-block;
+}
+
+.a-read {
+	padding: 0 5px;
+}
+
+.a-content {
+	padding: 10px 0;
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
+.end {
+	text-align: right;
+	font-size: 16px;
+	font-size: 1.6rem;
+	color: #555;
+}
+
+.comment {
+	text-align: right;
+	padding-top: 10px;
+}
+
+.comment-tip {
+	float: left;
+	color: red;
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
+.comment textarea {
+	text-align: left;
+	width: calc(100% - 6px);
+	resize: none;
+	outline: none;
+	font-size: 14px;
+	font-size: 1.4rem;
+}
+
+.comment button {
+	cursor: pointer;
+	font-family: "微软雅黑";
+	background-color: rgb(14, 186, 159);
+	border: none;
+	color: white;
+	font-size: 15px;
+	font-size: 1.5rem;
+	padding: 5px 20px;
+	border-radius: 5px;
+	outline: none;
+	transition: background-color ease .3s;
+}
+
+.comment button:hover {
+	background-color: rgb(72, 196, 189);
+}
+
+.comment button:active {
+	background-color: rgb(32, 167, 117);
+}
+
+.comment button.cancel {
+	background-color: white;
+	color: rgb(14, 186, 159);
+	padding: 4px 19px;
+	border: 1px solid rgb(14, 186, 159);
+	transition: color ease .3s, border-color ease .3s;
+}
+
+.comment button.cancel:hover {
+	color: rgb(72, 196, 189);
+	border: 1px solid rgb(72, 196, 189);
+}
+
+.comment button.cancel:active {
+	color: rgb(32, 167, 117);
+	border: 1px solid rgb(32, 167, 117);
+}
+
+.comments-list {
+	text-align: left;
+}
+
+.comments-list h3 {
+	font-size: 16px;
+	font-size: 1.6rem;
+}
+
+.comment-item {
+	font-size: 14px;
+	font-size: 1.4rem border-top: 1px solid #ccc;
+	padding: 10px 5px 5px;
+	border-top: 1px solid #eee;
+}
+
+.comment-item p {
+	margin: 5px;
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
+aside {
+	float: left;
+	padding: 100px 0 0;
+	max-width: 250px;
+	margin-left: 10px;
+	width: calc(33.33% - 10px);
+}
+
+aside ul,
+aside li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.ra-title {
+	font-size: 16px;
+	font-size: 1.6rem;
+	font-weight: bold;
+	border-left: 3px solid rgb(47, 33, 94);
+	padding: 5px 5px;
+}
+
+.ras-list {
+	padding-left: 2px;
+}
+
+.ras-list a {
+	font-size: 13px;
+	font-size: 1.3rem;
+	color: #000;
+}
+
+.ras-list li {
+	padding: 3px 0;
+}
+
+.ras-list a:hover {
+	color: #ccc;
+	/*overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;*/
+}
+
+@media only screen and (max-width: 700px) {
+	html {
+		font-size: 12px;
+	}
+	.content {
+		max-width: 100%;
+	}
+	.content .article {
+		margin-right: 0;
+		float: none;
+		max-width: calc(100% - 20px);
+		width: calc(100% - 20px);
+	}
+	aside {
+		float: none;
+		width: calc(100% - 20px);
+		max-width: calc(100% - 20px);
+		margin: 0;
+		padding: 10px;
+		padding-top: 20px;
+	}
+}
