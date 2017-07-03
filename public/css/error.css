@@ -1,3 +1,7 @@
+html {
+	font-size: 10px;
+}
+
 html,
 body {
 	height: 100%;
@@ -17,6 +21,7 @@ body {
 
 .title {
 	font-size: 100px;
+	font-size: 10rem;
 	color: #fff;
 	text-align: center;
 	line-height: 350px;
@@ -35,26 +40,58 @@ body {
 	border: none;
 	color: white;
 	height: 54px;
+	height: 5.4rem;
 	width: 54px;
+	width: 5.4rem;
 	border-radius: 50%;
 	outline: none;
 	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .btn-group a:hover {
 	background-color: rgb(164, 224, 224);
 }
+
 .btn-group a:active {
 	background-color: rgb(14, 186, 159);
 }
+
 #goHome {
 	background-image: url(../img/home.png);
-	background-position: 11px;
+	background-size: 32px;
+	background-size: 3.2rem;
 	margin-right: 20px;
 }
 
 #close {
 	background-image: url(../img/close.png);
 	background-size: 26px;
-	background-position: 14px;
+	background-size: 2.6rem;
+}
+
+@media only screen and (max-width: 700px) {
+	html {
+		font-size: 12px;
+	}
+	.error {
+		right: 0;
+		bottom: 0;
+		left: 0;
+		top: 0;
+		margin-left: 0px;
+		margin-top: 0px;
+		width: auto;
+		height: auto;
+	}
+	.title {
+		height: 100%;
+	}
+	.btn-group {
+		margin-top: -150px;
+	}
+	#goHome {
+		margin-right: 70px;
+	}
 }
