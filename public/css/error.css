@@ -1,0 +1,60 @@
+html,
+body {
+	height: 100%;
+	position: relative;
+}
+
+.error {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -250px;
+	margin-top: -175px;
+	width: 500px;
+	height: 350px;
+	background-color: rgb(47, 33, 94);
+}
+
+.title {
+	font-size: 100px;
+	color: #fff;
+	text-align: center;
+	line-height: 350px;
+}
+
+.btn-group {
+	line-height: 80px;
+	text-align: center;
+	margin-top: -80px;
+	font-size: 0;
+}
+
+.btn-group a {
+	display: inline-block;
+	background-color: rgb(14, 186, 159);
+	border: none;
+	color: white;
+	height: 54px;
+	width: 54px;
+	border-radius: 50%;
+	outline: none;
+	background-repeat: no-repeat;
+}
+
+.btn-group a:hover {
+	background-color: rgb(164, 224, 224);
+}
+.btn-group a:active {
+	background-color: rgb(14, 186, 159);
+}
+#goHome {
+	background-image: url(../img/home.png);
+	background-position: 11px;
+	margin-right: 20px;
+}
+
+#close {
+	background-image: url(../img/close.png);
+	background-size: 26px;
+	background-position: 14px;
+}
