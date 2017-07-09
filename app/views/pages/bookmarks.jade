@@ -1,0 +1,42 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(meta http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport")
+        title #{title}
+        link(rel="stylesheet" href="/css/reset1.3.css")
+        link(rel="stylesheet" href="/css/public.css")
+        link(rel="stylesheet" href="/css/bookmarks.css")
+    body
+        include ../includes/nav.jade
+        article
+            section.fixclear
+            div#tree.tree
+                ul
+                    li
+                        div.tree-node.L1.no-child 常用
+                    li
+                        div.tree-node.L1.no-child 全部
+
+                    li.active
+                        div.tree-node.L1.no-child 前端
+
+                div#close-tree 关闭
+            div.content
+                div.c-top
+                    span#tab.tab 全部
+                    div.search
+                        input(type="text" placeholder="Search")
+                        span(style="background-image: url(img/search.png);")
+
+                div.C-bookmarks-list
+                    ul
+                        li
+                            a(class="single-line" href="https://www.baidu.com/" target="_blank") 1.书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1书签1
+                        li
+                            a(href="#") 2.书签2
+        include ../includes/footer
+        script(type = "text/javascript" src = "js/utility.js")
+        script(type = "text/javascript" src = "js/pubilc.js")
+        script(type = "text/javascript" src = "js/bookmarks.js")

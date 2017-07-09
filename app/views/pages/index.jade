@@ -1,0 +1,64 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(meta http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport")
+        title #{title}
+        link( rel="stylesheet" href="/css/reset1.3.css")
+        link(rel="stylesheet" href="/css/public.css")
+        link( rel="stylesheet" href="/css/index.css")
+    body
+        nav
+            ul
+                li
+                    a(href="/") 主页
+                li
+                    a(href="/bookmarks") 个人书签
+        article
+            section
+                div.blog-bg
+                    img(src="img/blog-bg.png")
+            section
+                div.main
+                    div.per-info
+                        img(class="pi-pic" src="#{message.iconUrl}")
+                        div.pi-name #{message.name}
+                        div.pi-email
+                            ul
+                                each e in message.emial
+                                    li #{e}
+                        div.pi-other
+                            ul.fixclear
+                                li
+                                    a(class="pi-other-item" target="_blank" href="#{message.github.url}" style="background-image: url(#{message.github.iconUrl});") #{message.github.name}
+                                each o in message.other
+                                    li
+                                        a(class="pi-other-item" target="_blank" href="#{o.url}" style="background-image: url(#{o.iconUrl});") #{o.name}
+                    div.content
+                        div.search
+                            input(type="text" placeholder="Search")
+                            span(style="background-image: url(img/search.png);")
+                        div.tags-list
+                            span(class="tag active") 全部
+                            span(class="tag") 查找结果
+                        div.articles-list
+                            ul
+                                li
+                                    div.article
+                                        div.a-title
+                                            a(href="/article/#{article.id}")
+                                                h3 #{article.title}
+                                        div.a-update-time  更新时间&nbsp;:&nbsp;#{article.update}
+                                        div.a-content
+                                            p.multi-line #{article.content}
+                                        div.a-bottom
+                                            each t in article.tags
+                                                span.a-tag #{t}
+                                            span.a-read #{article.read}
+                                            span.a-comments #{article.comments}
+                            button(id="btn-get-more" type="button" disabled="true" class="get-more-article") 加载更多
+        include ../includes/footer
+        script(type="text/javascript" src="js/utility.js")
+        script(type="text/javascript" src="js/pubilc.js")
+        script(type="text/javascript" src="js/index.js")
