@@ -1,4 +1,6 @@
 var PersonalDetails = require('../models/personalDetails');
+var fs = require('fs');
+var path = require('path');
 exports.index = function (req, res) {
     res.render('index', {
         title: 'helloyoucan个人博客',
@@ -40,13 +42,25 @@ exports.getDetail = function (req, res) {
     res.json(test)
 }
 exports.save = function (req, res) {
-    res.json({test:'ok'});
-    PersonalDetails.update({}, function (err, message) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(message);
-        }
-    })
+    console.log(req)
+    /*PersonalDetails.update({}, function (err, message) {
+     if (err) {
+     console.log(err);
+     } else {
+     console.log(message);
+     }
+     })*/
+}
+exports.uploadImg = function (req, res) {
+    var file = req.file;
+    console.log(req.file)
+    console.log('文件类型：%s', file.mimetype);
+    console.log('原始文件名：%s', file.originalname);
+    console.log('文件大小：%s', file.size);
+    console.log('文件保存路径：%s', file.path);
+    res.json({
+        isSuccess: 'false',
+        path: 'http://' + req.headers.host  + file.path.replace(/\\/g, "/").replace("public", "")
+    });
 }
 
