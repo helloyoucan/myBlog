@@ -23,13 +23,11 @@ var PersonalDetailsSchema = new mongoose.Schema({
 });
 PersonalDetailsSchema.pre('save', function (next) {
     //每次保存数据都会调用这样方法
-    this.meta.updateAt = this.meta.createAt = Date.now();
-    next();
-});
-PersonalDetailsSchema.pre('update', function (next) {
-    //每次保存数据都会调用这样方法
-    console.log(this);
-    this._update.$set.meta.updateAt = Date.now();
+    if (this.isNew) {
+        this.meta.createAt = this.meta.up = Date.now();
+    } else {
+        this.meta.updateAt = Date.now();
+    }
     next();
 });
 PersonalDetailsSchema.statics = {

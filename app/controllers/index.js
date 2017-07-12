@@ -6,7 +6,6 @@ exports.index = function (req, res) {
             console.log("错误了:" + err);
         } else {
             console.log("获取成功：");
-            console.log(message);
             res.render('index', {
                 title: 'helloyoucan个人博客',
                 message: message,
