@@ -36,7 +36,7 @@ article {
 
 .per-info {
 	float: left;
-	max-width: 220px;
+	width: 210px;
 	text-align: center;
 	color: rgb(47, 33, 94);
 	font-size: 14px;
@@ -50,8 +50,8 @@ article {
 }
 
 .per-info img.pi-pic {
-	max-width: 60px;
-	max-height: 60px;
+	width: 60px;
+	height: 60px;
 	border-radius: 50%;
 }
 

@@ -22,17 +22,17 @@ html
             section
                 div.main
                     div.per-info
-                        img(class="pi-pic" src="#{message.iconUrl}")
+                        img(class="pi-pic" src="#{message.iconUrl.replace('http://127.0.0.1:3000/', '')}")
                         div.pi-name #{message.name}
                         div.pi-email
                             ul
-                                each e in message.emial
+                                each e in message.emails
                                     li #{e}
                         div.pi-other
                             ul.fixclear
                                 li
-                                    a(class="pi-other-item" target="_blank" href="#{message.github.url}" style="background-image: url(#{message.github.iconUrl});") #{message.github.name}
-                                each o in message.other
+                                    a(class="pi-other-item" target="_blank" href="#{message.github}" style="background-image: url(img/github.png);") #{message.github}
+                                each o in message.others
                                     li
                                         a(class="pi-other-item" target="_blank" href="#{o.url}" style="background-image: url(#{o.iconUrl});") #{o.name}
                     div.content
