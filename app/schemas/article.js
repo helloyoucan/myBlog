@@ -5,6 +5,10 @@ var ArticleSchema = new mongoose.Schema({
     title: String,
     tags: [String],
     content: String,
+    isDel: {
+        type: Number,
+        default: 0//未删除
+    },
     read: {
         type: Number,
         default: 0

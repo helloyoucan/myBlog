@@ -23,7 +23,7 @@ module.exports = function (app) {
 
     app.post('/article/save', cors(), Article.save);
     app.post('/article/list', cors(), Article.list);
-    app.post('/article/del', Article.del);
+    app.delete('/article/del/:id', Article.del);
     app.get('/article/getById/:id', Article.getById);
     app.get('/bookmarks', Bookmarks.bookmarks);
 }

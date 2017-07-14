@@ -31,7 +31,6 @@ exports.article = function (req, res) {
 }
 exports.save = function (req, res) {
     var articleObj = req.body;
-    console.log(articleObj);
     var _article;
     if (articleObj._id) {//已经保存过信息
         Article.findById(articleObj._id, function (err, article) {
@@ -63,23 +62,28 @@ exports.save = function (req, res) {
     }
 }
 exports.del = function (req, res) {
-    var id = req.body.id;
-    console.log(req.body)
+    var id = req.params.id;
     if (id) {
-        Article.remove({
-            _id: id
-        }, function (err, results) {
+        Article.findById(id, function (err, results) {
             if (err) {
                 res.json({isSuccess: false, "results": err});
             } else {
-                res.json({isSuccess: true, "results": results});
+                console.log(results);
+                results.isDel = 1;
+                results.save(function (err, article) {
+                    if (err) {
+                        console.log(err);
+                        res.json({isSuccess: false, results: err});
+                    } else {
+                        res.json({isSuccess: true, results: article});
+                    }
+                })
             }
         })
     }
 }
 exports.getById = function (req, res) {
     var id = req.params.id;
-    console.log(req);
     if (id) {
         Article.findById(id, function (err, results) {
             if (err) {
@@ -97,7 +101,8 @@ exports.list = function (req, res) {
     var index = (currentPage - 1) * currentNum;//查询
     Article
         .find({
-            title: new RegExp(keyword + '.*', 'i')
+            title: new RegExp(keyword + '.*', 'i'),
+            isDel: 0
         })
         .exec(function (err, articlesList) {
             if (err) {
