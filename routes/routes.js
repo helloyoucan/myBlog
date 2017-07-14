@@ -18,8 +18,12 @@ var upload = multer({
 module.exports = function (app) {
     app.get('/', Index.index);
     app.get('/getPersonalDetails', Index.getDetail);
-    app.post('/uploadImg', upload.single('imageFile'), Index.uploadImg);
     app.post('/savePersonalDetails', cors(), Index.save);
-    app.get('/article/:id', Article.article);
+    app.post('/uploadImg', upload.single('imageFile'), Index.uploadImg);
+
+    app.post('/article/save', cors(), Article.save);
+    app.post('/article/list', cors(), Article.list);
+    app.post('/article/del', Article.del);
+    app.get('/article/getById/:id', Article.getById);
     app.get('/bookmarks', Bookmarks.bookmarks);
 }
