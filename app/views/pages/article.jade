@@ -4,9 +4,9 @@ html
         meta(charset="utf-8")
         meta(meta http-equiv="X-UA-Compatible" content="IE=edge")
         meta(meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport")
-        title #{title}
-        link(rel="stylesheet" href="/css/public.css")
-        link( rel="stylesheet" href="/css/article.css")
+        title #{article.title}
+        link(rel="stylesheet" href="../css/public.css")
+        link( rel="stylesheet" href="../css/article.css")
     body
         include ../includes/nav.jade
         div.content.fixclear
@@ -15,9 +15,9 @@ html
                 div.a-tags-list
                     each t in article.tags
                         span.a-tag #{t}
-                div.a-msg 更新时间&nbsp;:&nbsp;#{article.update}
+                div.a-msg 更新时间&nbsp;:&nbsp;#{article.meta.updateAt}
                     span.a-read 阅读&nbsp;:&nbsp;#{article.read}
-                    span.a-comments 评论&nbsp;:&nbsp;#{article.comments.length}
+                    span.a-comments 评论&nbsp;:&nbsp;#{2}
                 div.a-content #{article.content}
                 div.end --完
                 div.comment
@@ -25,16 +25,16 @@ html
                     div.comment-tip 请15秒后再留言
                     button 确定
                     div.comments-list
-                        h3 #{article.comments.length}条留言
-                        each c,index  in article.comments
-                            div.comment-item #{index+1}楼&nbsp;&nbsp;#{c.time}
+                        h3 #{2}条留言
+                        //- each c,index  in article.comments
+                            div.comment-item #{index + 1}楼&nbsp;&nbsp;#{c.time}
                                 p #{c.content}
             aside
                 div.related-articles
                 div.ra-title 推荐文章
                 div.ras-list
                     ul
-                        each ra in article.related_articles
+                        //- each ra in article.related_articles
                             li
                                 a(href="/article/#{ra.id}") #{ra.title}
         include ../includes/footer

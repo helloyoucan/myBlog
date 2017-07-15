@@ -1,24 +1,37 @@
 var PersonalDetails = require('../models/personalDetails');
+var Article = require('../models/article');
 var _ = require('underscore');
 exports.index = function (req, res) {
     PersonalDetails.findOne({}, function (err, message) {
         if (err) {
             console.log("错误了:" + err);
         } else {
-            console.log("获取成功：");
-            res.render('index', {
-                title: 'helloyoucan个人博客',
-                message: message,
-                article: {
-                    id: '001',
-                    title: '文章标题',
-                    update: '2016.05.15 5:20',
-                    content: '每个 APP 的堆（heap）内存大小有硬性限制，如果您的 APP 已达到堆内存限制，并尝试分配更多的内存，系统会抛出 OutOfMemoryError。为了避免 OOM ，您可以查询当前设备有多少堆空间，可以通过调用系统 getMemoryInfo() 查询，返回一个ActivityManager.MemoryInfo 对象，它提供该设备当前存储器的状态信息，包括可用的存储器，总存储器，和低于该阈值存储器。',
-                    tags: ['文章标签1', '文章标签2'],
-                    read: 10,
-                    comments: 12
+            var keyword = "";//搜索的关键字
+            var currentPage = 1;//当前页
+            var currentNum = 10;//每页数量
+            var index = (currentPage - 1) * currentNum;//查询
+            Article.find({
+                title: new RegExp(keyword + '.*', 'i'),
+                isDel: 0
+            }, function (err, articlesList) {
+                if (err) {
+                    console.log("首页错误了" + err);
+                } else {
+                    var results = articlesList.slice(index, index + currentNum);
+                    console.log("获取成功：" + results);
+                    res.render('index', {
+                        title: 'helloyoucan个人博客',
+                        message: message,
+                        articles: results,
+                        list: {
+                            keyword: keyword,
+                            currentPage: currentPage,//当前页
+                            currentNum: currentNum,//每页数量
+                            total: articlesList.length,//总数量
+                        }
+                    });
                 }
-            });
+            })
         }
     });
 

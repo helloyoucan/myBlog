@@ -44,19 +44,20 @@ html
                             span(class="tag") 查找结果
                         div.articles-list
                             ul
-                                li
-                                    div.article
-                                        div.a-title
-                                            a(href="/article/#{article.id}")
-                                                h3 #{article.title}
-                                        div.a-update-time  更新时间&nbsp;:&nbsp;#{article.update}
-                                        div.a-content
-                                            p.multi-line #{article.content}
-                                        div.a-bottom
-                                            each t in article.tags
-                                                span.a-tag #{t}
-                                            span.a-read #{article.read}
-                                            span.a-comments #{article.comments}
+                                each a in articles
+                                    li
+                                        div.article
+                                            div.a-title
+                                                a(href="/article/#{a._id}")
+                                                    h3 #{a.title}
+                                            div.a-update-time  更新时间&nbsp;:&nbsp;#{a.meta.updateAt}
+                                            div.a-content
+                                                p.multi-line #{a.content}
+                                            div.a-bottom
+                                                each t in a.tags
+                                                    span.a-tag #{t}
+                                                span.a-read #{a.read}
+                                                span.a-comments #{a.comments}
                             button(id="btn-get-more" type="button" disabled="true" class="get-more-article") 加载更多
         include ../includes/footer
         script(type="text/javascript" src="js/utility.js")

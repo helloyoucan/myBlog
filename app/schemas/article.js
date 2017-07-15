@@ -39,6 +39,12 @@ ArticleSchema.pre('save', function (next) {
     next();
 });
 ArticleSchema.statics = {
+    fetch: function (opt, cb) {
+        return this
+            .find(opt)
+            .sort('meta.updateAt')
+            .exec(cb)
+    },
     findById: function (id, cb) {
         return this
             .findOne({
