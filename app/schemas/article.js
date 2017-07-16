@@ -13,10 +13,6 @@ var ArticleSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    comments: [{
-        type: ObjectId,
-        ref: 'Comments'
-    },],
     meta: {
         createAt: {
             type: Date,
@@ -24,6 +20,10 @@ var ArticleSchema = new mongoose.Schema({
         }
         ,
         updateAt: {
+            type: Date,
+            default: Date.now()
+        },
+        deleteAt: {
             type: Date,
             default: Date.now()
         }
@@ -34,7 +34,7 @@ ArticleSchema.pre('save', function (next) {
     if (this.isNew) {
         this.meta.createAt = this.meta.up = Date.now();
     } else {
-        this.meta.updateAt = Date.now();
+        this.meta.deleteAt = this.meta.updateAt = Date.now();
     }
     next();
 });

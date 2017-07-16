@@ -23,9 +23,10 @@ module.exports = function (app) {
 
     app.post('/article/save', cors(), Article.save);
     app.post('/article/list', cors(), Article.list);
-    app.delete('/article/del/:id', Article.softDel);
-    app.delete('/article/recycle/del/:id', Article.del);
+    app.post('/article/softDel', Article.softDel);
+    app.post('/article/recycle/del', Article.del);
     app.get('/article/getById/:id', Article.getById);
     app.get('/article/:id', Article.article);
+    app.post('/article/recycleBin', Article.recycleBin);
     app.get('/bookmarks', Bookmarks.bookmarks);
 }

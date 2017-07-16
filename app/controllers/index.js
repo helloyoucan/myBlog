@@ -18,7 +18,6 @@ exports.index = function (req, res) {
                     console.log("首页错误了" + err);
                 } else {
                     var results = articlesList.slice(index, index + currentNum);
-                    console.log("获取成功：" + results);
                     res.render('index', {
                         title: 'helloyoucan个人博客',
                         message: message,

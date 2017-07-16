@@ -25,18 +25,18 @@ html
                     div.comment-tip 请15秒后再留言
                     button 确定
                     div.comments-list
-                        h3 #{2}条留言
-                        //- each c,index  in article.comments
-                            div.comment-item #{index + 1}楼&nbsp;&nbsp;#{c.time}
-                                p #{c.content}
+                        h3 #{article.comments.length}条留言
+                            each c,index  in article.comments
+                                div.comment-item #{index + 1}楼&nbsp;&nbsp;#{c.time}
+                                    p #{c.content}
             aside
                 div.related-articles
-                div.ra-title 推荐文章
+                div.ra-title 相关文章
                 div.ras-list
                     ul
-                        //- each ra in article.related_articles
+                        each ra in article.related_articles
                             li
-                                a(href="/article/#{ra.id}") #{ra.title}
+                                a(href="/article/#{ra._id}") #{ra.title}
         include ../includes/footer
         script(type="text/javascript" src="../js/utility.js")
         script(type="text/javascript" src="../js/pubilc.js")
