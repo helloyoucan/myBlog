@@ -21,9 +21,9 @@ html
                 div.a-content #{article.content}
                 div.end --完
                 div.comment
-                    textarea(rows="3") 留言
+                    textarea(rows="3" id="comment") 留言
                     div.comment-tip 请15秒后再留言
-                    button 确定
+                    button(id="submitComment") 确定
                     div.comments-list
                         h3 #{article.comments.length}条留言
                             each c,index  in article.comments
@@ -40,3 +40,4 @@ html
         include ../includes/footer
         script(type="text/javascript" src="../js/utility.js")
         script(type="text/javascript" src="../js/pubilc.js")
+        script(type="text/javascript" src="../js/article.js")

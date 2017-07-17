@@ -1,6 +1,7 @@
 var Index = require('../app/controllers/index');
 var Article = require('../app/controllers/article');
 var Bookmarks = require('../app/controllers/bookmarks');
+var Comment = require('../app/controllers/comment');
 var cors = require('cors');
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -28,5 +29,6 @@ module.exports = function (app) {
     app.get('/article/getById/:id', Article.getById);
     app.get('/article/:id', Article.article);
     app.post('/article/recycleBin', Article.recycleBin);
+    app.post('/submitComment', Comment.save);
     app.get('/bookmarks', Bookmarks.bookmarks);
 }
