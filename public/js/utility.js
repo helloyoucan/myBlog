@@ -141,47 +141,77 @@ var m$ = {
         }
 
     },
-    /**
-     * type:String,"get"/"post",default:"get"
-     * url:String,
-     * dataType:string,"json"/"string",default:json
-     * data:JSON/"String"
-     * asyn:boolen,true/false,default:true
-     * contentType:"text/html; chartset=iso-8859-1"
-     * success:Function
-     * error:Function
-     * */
-    ajax: function (opts) {
+    get: function (opts) {
+        /*
+         * url:String,请求地址
+         * type:String, 'string/json',数据类型，如果是’string‘参数则是认为已经自己添加数据到url上面
+         * data:json,数据
+         * success:Function,成功时的回调
+         * error:Function,失败时的回调
+         * */
+        var xhr = new XMLHttpRequest();
         var _opts = {
-            type: "get",
-            dataType: "josn",
-            asyn: true
+            url: '',
+            type: 'string',
+            data: '',
+            success: '',
+            error: '',
         }
-        for (o in opts) {
-            _opts[o] = opts[o];
+        for (key in opts) {
+            _opts[key] = opts[key]
         }
-        _opts.type = _opts.type.toLowerCase();
-        _opts.dataType = _opts.dataType.toLowerCase();
-        if (_opts.dataType = 'json') {
-            _opts.data = JSON.stringify(_opts.data)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
+                    if (opts.success != undefined) {
+                        opts.success(xhr.responseText);
+                    }
+
+                } else {
+                    if (opts.error != undefined) {
+                        opts.error || opts.error(xhr.responseText);
+                    }
+                }
+            }
         }
-        console.log(_opts)
+        console.log(_opts.type)
+        if (_opts.type.toLowerCase() == 'json') {
+            var arr = new Array();
+            for (var key in opts.data) {
+                arr.push(encodeURIComponent(key) + "=" + encodeURIComponent(opts.data[key]));
+            }
+            opts.url += '?' + arr.join("&");
+
+            console.log(opts.data)
+        }
+        xhr.open("get", opts.url, true);
+        xhr.send();
+    },
+    post: function (opts) {
+        /*
+         * url:String,请求地址
+         * data:json,数据
+         * success:Function,成功时的回调
+         * error:Function,失败时的回调
+         * */
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
-                    _opts.success || _opts.success(xhr.responseText);
+                    if (opts.success != undefined) {
+                        opts.success(xhr.responseText);
+                    }
+
                 } else {
-                    console.error(xhr.status);
-                    _opts.error || _opts.error(xhr);
+                    if (opts.error != undefined) {
+                        opts.error || opts.error(xhr.responseText);
+                    }
                 }
             }
         }
-        xhr.open(_opts.type, _opts.url, _opts.asyn);
-        if (_opts.contentType) {
-            xhr.setRequestHeader("Content-type", _opts.contentType);
-        }
-        xhr.send(_opts.data);
+        xhr.open("post", opts.url, true);
+        xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        xhr.send(JSON.stringify(opts.data));
     },
     stopBubble: function (event, fn) { //阻止事件冒泡
         var e = event || window.event;
