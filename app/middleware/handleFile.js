@@ -19,7 +19,6 @@ module.exports = {
         });
     },
     writeMd: function (article, callback) {    //异步方式
-        console.log(arguments)
         var path = filePath + article.title + '.md';
         fs.writeFile(path, article.content, function (err) {
             if (err) {

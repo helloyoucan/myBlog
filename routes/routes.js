@@ -26,6 +26,7 @@ module.exports = function (app) {
     app.post('/article/softDel', Article.softDel);
     app.post('/article/recycle/del', Article.del);
     app.get('/article/getById/:id', Article.getById);
+    app.post('/article/getContent', Article.getContent);
     app.get('/article/:id', Article.article);
     app.post('/article/recycleBin', Article.recycleBin);
     app.post('/submitComment', Comment.save);

@@ -43,8 +43,9 @@ exports.save = function (req, res) {
             if (err) {
                 console.log("错误了:" + err);
             } else {
+                articleObj.preview = articleObj.content.substring(0, 300);
+                articleObj.fileName = handleFile.writeMdSync(articleObj);
                 _article = _.extend(article, articleObj);
-                _article.content = handleFile.writeMdSync(_article);
                 _article.save(function (err, article) {
                     if (err) {
                         console.error(err)
@@ -57,8 +58,9 @@ exports.save = function (req, res) {
         })
     } else {//还没有保存过信息
         delete articleObj._id;
+        articleObj.preview = articleObj.content.substring(0, 300);
+        articleObj.fileName = handleFile.writeMdSync(articleObj);
         _article = new Article(articleObj);
-        _article.content = handleFile.writeMdSync(_article);
         _article.save(function (err, article) {
             if (err) {
                 console.log(err);
@@ -107,8 +109,9 @@ exports.getById = function (req, res) {
                     if (err) {
                         console.log(err);
                     } else {
+                        article = JSON.parse(JSON.stringify(article));
                         article.comments = comments || [];
-                        article.content = handleFile.readMdSync(article.content);
+                        article.content = handleFile.readMdSync(article.fileName);
                         res.json({isSuccess: true, "results": article});
                     }
                 })
@@ -116,6 +119,12 @@ exports.getById = function (req, res) {
             }
         })
     }
+}
+exports.getContent = function (req, res) {
+    var fileName = req.body.fileName;
+    console.log(req)
+    var content = handleFile.readMdSync(fileName);
+    res.json({isSuccess: true, content: content});
 }
 exports.list = function (req, res) {
     var keyword = req.body.keyword;//搜索的关键字

@@ -4,7 +4,8 @@ var ObjectId = Schema.Types.ObjectId;
 var ArticleSchema = new mongoose.Schema({
     title: String,
     tags: [String],
-    content: String,
+    fileName: String,
+    preview: String,
     isDel: {
         type: Number,
         default: 0//未删除
