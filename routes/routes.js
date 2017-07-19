@@ -21,7 +21,6 @@ module.exports = function (app) {
     app.get('/getPersonalDetails', Index.getDetail);
     app.post('/savePersonalDetails', cors(), Index.save);
     app.post('/uploadImg', upload.single('imageFile'), Index.uploadImg);
-
     app.post('/article/save', cors(), Article.save);
     app.post('/article/list', cors(), Article.list);
     app.post('/article/softDel', Article.softDel);

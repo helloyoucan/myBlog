@@ -1,5 +1,6 @@
 var Article = require('../models/article');
 var Comment = require('../models/comment');
+var handleFile = require('../middleware/handleFile');
 var _ = require('underscore');
 exports.article = function (req, res) {
     var id = req.params.id;
@@ -43,19 +44,21 @@ exports.save = function (req, res) {
                 console.log("错误了:" + err);
             } else {
                 _article = _.extend(article, articleObj);
+                _article.content = handleFile.writeMdSync(_article);
                 _article.save(function (err, article) {
                     if (err) {
                         console.error(err)
                         res.json({isSuccess: false, "results ": err});
-                    } else {//还没有保存过信息
+                    } else {
                         res.json({isSuccess: true, "results ": article});
                     }
                 });
             }
         })
-    } else {
+    } else {//还没有保存过信息
         delete articleObj._id;
         _article = new Article(articleObj);
+        _article.content = handleFile.writeMdSync(_article);
         _article.save(function (err, article) {
             if (err) {
                 console.log(err);
@@ -105,6 +108,7 @@ exports.getById = function (req, res) {
                         console.log(err);
                     } else {
                         article.comments = comments || [];
+                        article.content = handleFile.readMdSync(article.content);
                         res.json({isSuccess: true, "results": article});
                     }
                 })
