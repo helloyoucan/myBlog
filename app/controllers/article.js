@@ -44,31 +44,47 @@ exports.save = function (req, res) {
                 console.log("错误了:" + err);
             } else {
                 articleObj.preview = articleObj.content.substring(0, 300);
-                articleObj.fileName = handleFile.writeMdSync(articleObj);
+                // articleObj.fileName = handleFile.writeMdSync(articleObj);
                 _article = _.extend(article, articleObj);
                 _article.save(function (err, article) {
                     if (err) {
                         console.error(err)
                         res.json({isSuccess: false, "results ": err});
                     } else {
-                        res.json({isSuccess: true, "results ": article});
+                        article.fileName = handleFile.writeMdSync(article);
+                        article.save(function (err, article) {
+                            if (err) {
+                                console.log(err);
+                                res.json({isSuccess: false, results: err});
+                            } else {
+                                res.json({isSuccess: true, results: article});
+                            }
+                        });
                     }
                 });
             }
         })
     } else {//还没有保存过信息
         delete articleObj._id;
+        // articleObj.fileName = handleFile.writeMdSync(articleObj);
         articleObj.preview = articleObj.content.substring(0, 300);
-        articleObj.fileName = handleFile.writeMdSync(articleObj);
         _article = new Article(articleObj);
         _article.save(function (err, article) {
             if (err) {
                 console.log(err);
                 res.json({isSuccess: false, results: err});
             } else {
-                res.json({isSuccess: true, results: article});
+                article.fileName = handleFile.writeMdSync(article);
+                article.save(function (err, article) {
+                    if (err) {
+                        console.log(err);
+                        res.json({isSuccess: false, results: err});
+                    } else {
+                        res.json({isSuccess: true, results: article});
+                    }
+                });
             }
-        })
+        });
     }
 }
 exports.softDel = function (req, res) {
@@ -122,7 +138,6 @@ exports.getById = function (req, res) {
 }
 exports.getContent = function (req, res) {
     var fileName = req.body.fileName;
-    console.log(req)
     var content = handleFile.readMdSync(fileName);
     res.json({isSuccess: true, content: content});
 }

@@ -19,7 +19,7 @@ module.exports = {
         });
     },
     writeMd: function (article, callback) {    //异步方式
-        var path = filePath + article.title + '.md';
+        var path = filePath + article.title + '-' + article._id + '.md';
         fs.writeFile(path, article.content, function (err) {
             if (err) {
                 console.log(err)
@@ -29,7 +29,7 @@ module.exports = {
         return path;
     },
     writeMdSync: function (article) {  //同步方式
-        var path = filePath + article.title + '.md';
+        var path = filePath + article.title + '-' + article._id + '.md';
         fs.writeFileSync(path, article.content);
         article.content = path;
         return path;
