@@ -30,5 +30,6 @@ module.exports = function (app) {
     app.get('/article/:id', Article.article);
     app.post('/article/recycleBin', Article.recycleBin);
     app.post('/submitComment', Comment.save);
+    app.post('/delComment', Comment.del);
     app.get('/bookmarks', Bookmarks.bookmarks);
 }

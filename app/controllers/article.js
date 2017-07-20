@@ -53,6 +53,9 @@ exports.save = function (req, res) {
             if (err) {
                 console.log("错误了:" + err);
             } else {
+                if (articleObj.tags.length == 0) {
+                    articleObj.tags.push("其它");
+                }
                 articleObj.preview = articleObj.content.substring(0, 300);
                 // articleObj.fileName = handleFile.writeMdSync(articleObj);
                 _article = _.extend(article, articleObj);
@@ -78,6 +81,9 @@ exports.save = function (req, res) {
         delete articleObj._id;
         // articleObj.fileName = handleFile.writeMdSync(articleObj);
         articleObj.preview = articleObj.content.substring(0, 300);
+        if (articleObj.tags.length == 0) {
+            articleObj.tags.push("其它");
+        }
         _article = new Article(articleObj);
         _article.save(function (err, article) {
             if (err) {
@@ -166,7 +172,6 @@ exports.list = function (req, res) {
                 console.log("首页错误了");
             } else {
                 var results = articlesList.slice(index, index + currentNum);
-
                 res.json({
                     isSuccess: true,
                     articlesList: results,

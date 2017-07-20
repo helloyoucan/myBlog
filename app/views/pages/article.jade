@@ -28,7 +28,7 @@ html
                         h3 #{article.comments.length}条留言
                         each c,index  in article.comments
                             div.comment-item #{index + 1}楼&nbsp;&nbsp;#{c.time.toLocaleString()}
-                                p #{c.content}
+                                p !{c.content}
             aside
                 div.related-articles
                 div.ra-title 相关文章
