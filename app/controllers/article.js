@@ -9,6 +9,12 @@ exports.article = function (req, res) {
             if (err) {
                 console.log(err)
             } else {
+                article.read++;
+                article.save(function (err, article) {
+                    if (err) {
+                        console.log("添加浏览次数失败" + err);
+                    }
+                });
                 Article.find({
                     "tags": {"$in": article.tags},
                     "_id": {"$ne": article._id}
@@ -16,12 +22,16 @@ exports.article = function (req, res) {
                     if (err) {
                         console.log(err);
                     } else {
+                        article = JSON.parse(JSON.stringify(article));
                         article.related_articles = related_articles;
-                        Comment.find({article: article._id}, function (err, comments) {
+                        var content = handleFile.readMdSync(article.fileName);
+                        article.content = content;
+                        Comment.find({articleId: article._id}, function (err, comments) {
                             if (err) {
                                 console.log(err);
                             } else {
                                 article.comments = comments;
+                                console.log(article)
                                 res.render('article', {
                                     article: article,
                                 });
@@ -121,7 +131,7 @@ exports.getById = function (req, res) {
             if (err) {
                 res.json({isSuccess: false, "results": err});
             } else {
-                Comment.find({article: article._id}, function (err, comments) {
+                Comment.find({articleId: article._id}, function (err, comments) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -155,7 +165,8 @@ exports.list = function (req, res) {
             if (err) {
                 console.log("首页错误了");
             } else {
-                var results = articlesList.slice(index, index + currentNum)
+                var results = articlesList.slice(index, index + currentNum);
+
                 res.json({
                     isSuccess: true,
                     articlesList: results,

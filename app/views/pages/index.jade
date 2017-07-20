@@ -31,7 +31,7 @@ html
                         div.pi-other
                             ul.fixclear
                                 li
-                                    a(class="pi-other-item" target="_blank" href="#{message.github}" style="background-image: url(img/github.png);") #{message.github}
+                                    a(class="pi-other-item" target="_blank" href="#{message.github}" style="background-image: url(img/github.png);") Github
                                 each o in message.others
                                     li
                                         a(class="pi-other-item" target="_blank" href="#{o.url}" style="background-image: url(#{o.iconUrl});") #{o.name}
@@ -41,16 +41,15 @@ html
                             span(style="background-image: url(img/search.png);")
                         div.tags-list
                             span(class="tag active") 全部
-                            span(class="tag") 查找结果
+                            //- span(class="tag") 查找结果
                         div.articles-list
                             ul
                                 each a in articles
                                     li
                                         div.article
                                             div.a-title
-                                                a(href="/article/#{a._id}")
-                                                    h3 #{a.title}
-                                            div.a-update-time  更新时间&nbsp;:&nbsp;#{a.meta.updateAt}
+                                                a(href="/article/#{a._id}") #{a.title}
+                                            div.a-update-time  更新时间&nbsp;:&nbsp;#{a.meta.updateAt.toLocaleString()}
                                             div.a-content
                                                 p.multi-line #{a.preview}
                                             div.a-bottom
