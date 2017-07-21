@@ -37,8 +37,8 @@ html
                                         a(class="pi-other-item" target="_blank" href="#{o.url}" style="background-image: url(#{o.iconUrl});") #{o.name}
                     div.content
                         div.search
-                            input(type="text" placeholder="Search")
-                            span(style="background-image: url(img/search.png);")
+                            input(type="text" id="searchVal" placeholder="Search")
+                            span(id="searchAct" style="background-image: url(img/search.png);")
                         div.tags-list
                             span(class="tag active") 全部
                             //- span(class="tag") 查找结果
