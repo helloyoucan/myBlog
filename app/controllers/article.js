@@ -24,14 +24,13 @@ exports.article = function (req, res) {
                     } else {
                         article = JSON.parse(JSON.stringify(article));
                         article.related_articles = related_articles;
-                        var content = handleFile.readMdSync(article.fileName);
-                        article.content = content;
+                        article.content = handleFile.readMdSync(article.fileName);
+                        ;
                         Comment.find({articleId: article._id}, function (err, comments) {
                             if (err) {
                                 console.log(err);
                             } else {
                                 article.comments = comments;
-                                console.log(article)
                                 res.render('article', {
                                     article: article,
                                 });
@@ -90,7 +89,10 @@ exports.save = function (req, res) {
                 console.log(err);
                 res.json({isSuccess: false, results: err});
             } else {
-                article.fileName = handleFile.writeMdSync(article);
+                article.fileName = handleFile.writeMdSync({
+                    '_id': article._id,
+                    content: articleObj.content
+                });
                 article.save(function (err, article) {
                     if (err) {
                         console.log(err);
@@ -163,11 +165,10 @@ exports.list = function (req, res) {
     var currentNum = parseInt(req.body.currentNum, 10) || 10;//每页数量
     var index = (currentPage - 1) * currentNum;//用于把数据分割
     Article
-        .find({
+        .fetch({
             title: new RegExp(keyword + '.*', 'i'),
             isDel: 0
-        })
-        .exec(function (err, articlesList) {
+        }, function (err, articlesList) {
             if (err) {
                 console.log("首页错误了");
             } else {

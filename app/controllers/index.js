@@ -10,7 +10,7 @@ exports.index = function (req, res) {
             var currentPage = 1;//当前页
             var currentNum = 10;//每页数量
             var index = (currentPage - 1) * currentNum;//查询
-            Article.find({
+            Article.fetch({
                 title: new RegExp(keyword + '.*', 'i'),
                 isDel: 0
             }, function (err, articlesList) {
