@@ -2,6 +2,7 @@ var Article = require('../models/article');
 var Comment = require('../models/comment');
 var handleFile = require('../middleware/handleFile');
 var _ = require('underscore');
+var markdown = require("markdown").markdown;
 exports.article = function (req, res) {
     var id = req.params.id;
     if (id) {
@@ -17,15 +18,15 @@ exports.article = function (req, res) {
                 });
                 Article.find({
                     "tags": {"$in": article.tags},
-                    "_id": {"$ne": article._id}
+                    "_id": {"$ne": article._id},
+                    "isDel": 0,
                 }, ["_id", "title"], function (err, related_articles) {
                     if (err) {
                         console.log(err);
                     } else {
                         article = JSON.parse(JSON.stringify(article));
                         article.related_articles = related_articles;
-                        article.content = handleFile.readMdSync(article.fileName);
-                        ;
+                        article.content = markdown.toHTML(handleFile.readMdSync(article.fileName));
                         Comment.find({articleId: article._id}, function (err, comments) {
                             if (err) {
                                 console.log(err);
@@ -55,7 +56,8 @@ exports.save = function (req, res) {
                 if (articleObj.tags.length == 0) {
                     articleObj.tags.push("其它");
                 }
-                articleObj.preview = articleObj.content.substring(0, 300);
+                articleObj.preview = markdown.toHTML(articleObj.content).replace(/<\/?.+?>/g, "").replace(/ /g, "").replace(/&\/?.+?;/g, "").substring(0, 300);
+
                 // articleObj.fileName = handleFile.writeMdSync(articleObj);
                 _article = _.extend(article, articleObj);
                 _article.save(function (err, article) {
@@ -78,8 +80,8 @@ exports.save = function (req, res) {
         })
     } else {//还没有保存过信息
         delete articleObj._id;
-        // articleObj.fileName = handleFile.writeMdSync(articleObj);
-        articleObj.preview = articleObj.content.substring(0, 300);
+        // articleObj.fileName = handleFile.writeMdSync(articleObj)
+        articleObj.preview = markdown.toHTML(articleObj.content).replace(/<\/?.+?>/g, "").replace(/ /g, "").replace(/&\/?.+?;/g, "").substring(0, 300);
         if (articleObj.tags.length == 0) {
             articleObj.tags.push("其它");
         }
@@ -122,14 +124,14 @@ exports.softDel = function (req, res) {
 exports.del = function (req, res) {
     var ids = req.body.ids;
     if (ids.length) {
-        Article.remove({"_id": {$in: ids},}, {multi: true}, function (err, results) {
-                if (err) {
-                    res.json({isSuccess: false, results: err});
-                } else {
-                    res.json({isSuccess: true, results: results});
-                }
+        Article.remove({"_id": {$in: ids}}, function (err, results) {
+            if (err) {
+                console.log(err)
+                res.json({isSuccess: false, results: err});
+            } else {
+                res.json({isSuccess: true, results: results});
             }
-        )
+        });
     }
 }
 exports.getById = function (req, res) {
@@ -145,7 +147,7 @@ exports.getById = function (req, res) {
                     } else {
                         article = JSON.parse(JSON.stringify(article));
                         article.comments = comments || [];
-                        article.content = handleFile.readMdSync(article.fileName);
+                        article.content = markdown.toHTML(handleFile.readMdSync(article.fileName));
                         res.json({isSuccess: true, "results": article});
                     }
                 })

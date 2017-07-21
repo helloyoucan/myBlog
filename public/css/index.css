@@ -146,6 +146,7 @@ a.pi-other-item {
     border: 1px solid rgb(14, 186, 159);
     padding: 2px 4px;
     border-radius: 5px;
+    margin-right: 5px;
 }
 
 .a-read,
@@ -187,6 +188,12 @@ button.get-more-article:hover {
 
 button.get-more-article:active {
     background-color: rgb(32, 167, 117);
+}
+
+button.get-more-article:disabled,
+button.get-more-article:hover,
+button.get-more-article:active {
+    background-color: #cccccc;
 }
 
 @media only screen and (max-width: 700px) {

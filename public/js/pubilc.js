@@ -11,8 +11,8 @@ m$.addEvent(window, 'scroll', function(e) {
 //返回顶部
 m$.addEvent(domBack_to_top, 'click', function() {
 	var id = setInterval(function() {
-		document.documentElement.scrollTop -= 10;
-		document.body.scrollTop -= 10;
+		document.documentElement.scrollTop -= 50;
+		document.body.scrollTop -= 50;
 		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 		if(scrollTop <= 0) {
 			clearInterval(id);

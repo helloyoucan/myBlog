@@ -57,7 +57,10 @@ html
                                                     span.a-tag #{t}
                                                 span.a-read #{a.read}
                                                 // span.a-comments #{a.comments}
-                            button(id="btn-get-more" type="button" disabled="true" class="get-more-article") 加载更多
+                            if articles.length < 10
+                                button(id="btn-get-more" type="button" disabled="disabled" class="get-more-article") 已加载全部(#{articles.length + '/' + list.total})
+                            else
+                                button(id="btn-get-more" type="button" class="get-more-article") 加载更多(#{articles.length + '/' + list.total})
         include ../includes/footer
         script(type="text/javascript" src="js/utility.js")
         script(type="text/javascript" src="js/pubilc.js")

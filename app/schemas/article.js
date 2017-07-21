@@ -43,7 +43,7 @@ ArticleSchema.statics = {
     fetch: function (opt, cb) {
         return this
             .find(opt)
-            .sort({'meta.updateAt': -1})
+            .sort({'meta.createAt': -1})
             .exec(cb)
     },
     findById: function (id, cb) {
