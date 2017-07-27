@@ -2,6 +2,7 @@ var Index = require('../app/controllers/index');
 var Article = require('../app/controllers/article');
 var Bookmarks = require('../app/controllers/bookmarks');
 var Comment = require('../app/controllers/comment');
+var User = require('../app/controllers/user');
 var cors = require('cors');
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -19,17 +20,20 @@ var upload = multer({
 module.exports = function (app) {
     app.get('/', Index.index);
     app.get('/getPersonalDetails', Index.getDetail);
-    app.post('/savePersonalDetails', cors(), Index.save);
+    app.post('/savePersonalDetails', User.signinRequired, cors(), Index.save);
     app.post('/uploadImg', upload.single('imageFile'), Index.uploadImg);
-    app.post('/article/save', cors(), Article.save);
+    app.post('/article/save', User.signinRequired, cors(), Article.save);
     app.post('/article/list', cors(), Article.list);
-    app.post('/article/softDel', Article.softDel);
-    app.post('/article/recycle/del', Article.del);
+    app.post('/article/softDel', User.signinRequired, Article.softDel);
+    app.post('/article/recycle/del', User.signinRequired, Article.del);
     app.get('/article/getById/:id', Article.getById);
     app.post('/article/getContent', Article.getContent);
     app.get('/article/:id', Article.article);
     app.post('/article/recycleBin', Article.recycleBin);
     app.post('/submitComment', Comment.save);
-    app.post('/delComment', Comment.del);
+    app.post('/delComment', User.signinRequired, Comment.del);
     app.get('/bookmarks', Bookmarks.bookmarks);
+    app.post('/saveUser', User.signinRequired, User.save);
+    app.post('/signin', User.signin);
+    app.get('/logout', User.logout);
 }

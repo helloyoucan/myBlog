@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var mongoStore = require('connect-mongo')(session);
 var app = express();
 var dbUrl = 'mongodb://123.207.77.245:27000/myBlog'
 app.all('*', function (req, res, next) {
@@ -29,8 +31,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
+app.use(session({
+    secret: 'helloyoucan',
+    store: new mongoStore({ //会话持久化
+        url: dbUrl,
+        collection: 'session'
+    })
+    /*resave: false,
+     saveUninitialized: true*/
+}));
 require('./routes/routes')(app)
 
 // catch 404 and forward to error handler
@@ -48,7 +57,6 @@ app.use(function (err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    //res.render('error');
     res.sendfile("./app/views/error.html");
 });
 
