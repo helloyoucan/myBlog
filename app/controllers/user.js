@@ -23,7 +23,7 @@ exports.signin = function (req, res) {
             if (isMatch) {
                 console.log('登录成功');
                 req.session.user = user;
-                res.json({isSuccess: true, message: '登录成功'})
+                res.json({isSuccess: true, user: user, message: '登录成功'})
                 return;
             } else {
                 res.json({isSuccess: false, message: '密码错误'})
@@ -34,7 +34,6 @@ exports.signin = function (req, res) {
 };
 //logout
 exports.logout = function (req, res) {
-    console.log(req.session.user)
     delete req.session.user;
     //delete app.locals.user;
     res.json({isSuccess: true, message: '退出登录成功'})
