@@ -35,5 +35,6 @@ module.exports = function (app) {
     app.get('/bookmarks', Bookmarks.bookmarks);
     app.post('/saveUser', User.signinRequired, User.save);
     app.post('/signin', User.signin);
+    app.get('/captcha', User.captcha);
     app.get('/logout', User.logout);
 }

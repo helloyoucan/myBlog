@@ -42,7 +42,7 @@ function getArticle() {
                 response.articlesList.forEach(function (value, index, array) {
                     htmlStr += '<li><div class="article"><div class="a-title">' +
                         '<a href="/article/' + value._id + '">' + value.title + '</a>' +
-                        '</div><div class="a-update-time">更新时间&nbsp;:&nbsp;' + value.meta.updateAt.toLocaleString() +
+                        '</div><div class="a-update-time">更新时间&nbsp;:&nbsp;' + value.meta.updateAt.toLocaleString().replace('T', ' ').slice(0, -5) +
                         '</div><div class="a-content"><p class="multi-line">' + value.preview +
                         '</p></div><div class="a-bottom">';
                     value.tags.forEach(function (value, index, array) {
