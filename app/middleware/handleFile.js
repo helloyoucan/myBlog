@@ -29,7 +29,8 @@ module.exports = {
         return path;
     },
     writeMdSync: function (article) {  //同步方式
-        var path = filePath + article.title + '-' + article._id + '.md';
+        console.log(article.title)
+        var path = filePath + article.title.replace(/ /g, "") + '-' + article._id + '.md';
         fs.writeFileSync(path, article.content);
         article.content = path;
         return path;

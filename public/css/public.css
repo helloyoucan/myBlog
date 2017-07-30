@@ -12,7 +12,6 @@ nav {
     top: 0;
     right: 0;
     left: 0;
-    height: 60px;
     z-index: 1;
 }
 
@@ -38,7 +37,7 @@ nav a {
     text-align: center;
     font-size: 14px;
     font-size: 1.4rem;
-    line-height: 60px;
+    line-height: 50px;
     padding: 0 15px;
     min-width: 60px;
     -webkit-tap-highlight-color: rgba(255, 0, 0, 0);

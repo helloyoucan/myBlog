@@ -48,7 +48,7 @@ html
                                     li
                                         div.article
                                             div.a-title
-                                                a(href="/article/#{a._id}") #{a.title}
+                                                a(href="/article/#{a._id}" target="_blank") #{a.title}
                                             div.a-update-time  更新时间&nbsp;:&nbsp;#{a.meta.updateAt.toLocaleString()}
                                             div.a-content
                                                 p.multi-line #{a.preview}

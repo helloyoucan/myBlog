@@ -31,7 +31,7 @@ article {
     max-width: 940px;
     margin: 0 auto;
     padding-top: 50px;
-    padding: 50px 10px 0;
+    padding: 20px 10px 0;
 }
 
 .per-info {
@@ -132,6 +132,8 @@ a.pi-other-item {
     font-size: 1.4rem;
     font-weight: 400;
     -webkit-line-clamp: 3;
+    line-height: 1.6;
+    margin: 5px 0;
 }
 
 .a-bottom {
@@ -207,7 +209,7 @@ button.get-more-article:active {
     }
 
     .per-info {
-        position: relative;
+        position: relative !important;
         float: none;
         margin: -260px auto 0;
         background-color: transparent;

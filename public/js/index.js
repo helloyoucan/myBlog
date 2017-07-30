@@ -3,6 +3,7 @@ var domNav = document.getElementsByTagName('nav')[0],
     articles_list = m$.getByClass('articles-list'),
     searchVal = m$.getById('searchVal'),
     searchAct = m$.getById('searchAct'),
+    per_info = m$.getByClass('per-info')[0],
     page = {
         keyword: '',
         currentPage: 1,//当前页
@@ -10,11 +11,15 @@ var domNav = document.getElementsByTagName('nav')[0],
     };
 m$.addEvent(window, 'scroll', function (e) {
     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    if (scrollTop > 200) {
+    if (scrollTop > 210) {
         domBack_to_top.style.display = 'block';
-        m$.addClass(domNav, 'show-bg')
-    } else if (scrollTop < 200) {
+        per_info.style.position = 'fixed';
+        per_info.style.top = '70px';
+        m$.addClass(domNav, 'show-bg');
+    } else if (scrollTop < 210) {
         domBack_to_top.style.display = 'none';
+        per_info.style.position = 'relative';
+        per_info.style.top = '0px';
         m$.removeClass(domNav, 'show-bg');
     }
 });

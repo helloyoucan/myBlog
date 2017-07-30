@@ -93,6 +93,7 @@ exports.save = function (req, res) {
             } else {
                 article.fileName = handleFile.writeMdSync({
                     '_id': article._id,
+                    title: article.title,
                     content: articleObj.content
                 });
                 article.save(function (err, article) {
