@@ -2,6 +2,7 @@ var Article = require('../models/article');
 var Comment = require('../models/comment');
 var handleFile = require('../middleware/handleFile');
 var _ = require('underscore');
+var cos = require('../middleware/cos');
 var markdown = require("markdown").markdown;
 exports.article = function (req, res) {
     var id = req.params.id;
@@ -26,15 +27,25 @@ exports.article = function (req, res) {
                     } else {
                         article = JSON.parse(JSON.stringify(article));
                         article.related_articles = related_articles;
-                        article.content = markdown.toHTML(handleFile.readMdSync(article.fileName));
+                        //article.content = markdown.toHTML(handleFile.readMdSync(article.fileName));
                         Comment.find({articleId: article._id}, function (err, comments) {
                             if (err) {
                                 console.log(err);
                             } else {
                                 article.comments = comments;
-                                res.render('article', {
-                                    article: article,
+                                cos.get({
+                                    key: article.fileName,
+                                    success: function (data) {
+                                        article.content = data;
+                                        res.render('article', {
+                                            article: article,
+                                        });
+                                    },
+                                    error: function (err) {
+                                        console.log(err)
+                                    }
                                 });
+
                             }
                         })
                     }
@@ -57,55 +68,19 @@ exports.save = function (req, res) {
                     articleObj.tags.push("其它");
                 }
                 articleObj.preview = markdown.toHTML(articleObj.content).replace(/<\/?.+?>/g, "").replace(/ /g, "").replace(/&\/?.+?;/g, "").substring(0, 300);
-
-                // articleObj.fileName = handleFile.writeMdSync(articleObj);
                 _article = _.extend(article, articleObj);
-                _article.save(function (err, article) {
-                    if (err) {
-                        console.error(err)
-                        res.json({isSuccess: false, "results ": err});
-                    } else {
-                        article.fileName = handleFile.writeMdSync(article);
-                        article.save(function (err, article) {
-                            if (err) {
-                                console.log(err);
-                                res.json({isSuccess: false, results: err});
-                            } else {
-                                res.json({isSuccess: true, results: article});
-                            }
-                        });
-                    }
-                });
+                saveArticle(res, _article, articleObj.content);
+
             }
         })
     } else {//还没有保存过信息
         delete articleObj._id;
-        // articleObj.fileName = handleFile.writeMdSync(articleObj)
         articleObj.preview = markdown.toHTML(articleObj.content).replace(/<\/?.+?>/g, "").replace(/ /g, "").replace(/&\/?.+?;/g, "").substring(0, 300);
         if (articleObj.tags.length == 0) {
             articleObj.tags.push("其它");
         }
         _article = new Article(articleObj);
-        _article.save(function (err, article) {
-            if (err) {
-                console.log(err);
-                res.json({isSuccess: false, results: err});
-            } else {
-                article.fileName = handleFile.writeMdSync({
-                    '_id': article._id,
-                    title: article.title,
-                    content: articleObj.content
-                });
-                article.save(function (err, article) {
-                    if (err) {
-                        console.log(err);
-                        res.json({isSuccess: false, results: err});
-                    } else {
-                        res.json({isSuccess: true, results: article});
-                    }
-                });
-            }
-        });
+        saveArticle(res, _article, articleObj.content);
     }
 }
 exports.softDel = function (req, res) {
@@ -124,15 +99,36 @@ exports.softDel = function (req, res) {
 }
 exports.del = function (req, res) {
     var ids = req.body.ids;
+    var fileNames = req.body.fileNames;
+
+
     if (ids.length) {
-        Article.remove({"_id": {$in: ids}}, function (err, results) {
-            if (err) {
+        var keys = [];
+        fileNames.forEach(function (value, index, array) {
+            keys.push({
+                Key: value,
+            })
+        });
+        console.log(keys)
+        cos.dels({
+            keys: keys,
+            success: function (data) {
+                Article.remove({"_id": {$in: ids}}, function (err, results) {
+                    if (err) {
+                        console.log(err)
+                        res.json({isSuccess: false, results: err});
+                    } else {
+                        res.json({isSuccess: true, results: data});
+                    }
+                });
+            },
+            error: function (err) {
                 console.log(err)
                 res.json({isSuccess: false, results: err});
-            } else {
-                res.json({isSuccess: true, results: results});
+
             }
         });
+
     }
 }
 exports.getById = function (req, res) {
@@ -148,8 +144,20 @@ exports.getById = function (req, res) {
                     } else {
                         article = JSON.parse(JSON.stringify(article));
                         article.comments = comments || [];
-                        article.content = markdown.toHTML(handleFile.readMdSync(article.fileName));
-                        res.json({isSuccess: true, "results": article});
+                        //article.content = markdown.toHTML(handleFile.readMdSync(article.fileName));
+                        console.log(article.fileName)
+                        cos.get({
+                            key: article.fileName,
+                            success: function (data) {
+                                article.content = data;
+                                res.json({isSuccess: true, "results": article});
+                            },
+                            error: function (err) {
+                                res.json({isSuccess: false, "results": err});
+                                console.log(err)
+                            }
+                        });
+
                     }
                 })
 
@@ -159,8 +167,16 @@ exports.getById = function (req, res) {
 }
 exports.getContent = function (req, res) {
     var fileName = req.body.fileName;
-    var content = handleFile.readMdSync(fileName);
-    res.json({isSuccess: true, content: content});
+    //var content = handleFile.readMdSync(fileName);
+    cos.get({
+        key: fileName,
+        success: function (data) {
+            res.json({isSuccess: true, content: data});
+        },
+        error: function () {
+
+        }
+    });
 }
 exports.list = function (req, res) {
     var keyword = req.body.keyword;//搜索的关键字
@@ -198,7 +214,7 @@ exports.recycleBin = function (req, res) {
     Article.find({
         isDel: 1,
         title: new RegExp(keyword + '.*', 'i')
-    }, ['_id', 'title', 'meta'], function (err, articlesList) {
+    }, ['_id', 'title', 'meta', 'fileName'], function (err, articlesList) {
         var results = articlesList.slice(index, index + currentNum)
         if (err) {
             console.log(err);
@@ -216,4 +232,38 @@ exports.recycleBin = function (req, res) {
             });
         }
     })
+}
+
+function saveArticle(res, _article, content) {
+    _article.save(function (err, article) {
+        if (err) {
+            console.error(err)
+            res.json({isSuccess: false, "results ": err});
+        } else {
+            //生成.md文件到"./public/Markdown/"
+            /*article.fileName = handleFile.writeMdSync({'_id': article._id,title: article.title, content: content});*/
+            //上传文件到腾讯云bucket的myblog/markdown/目录下
+            article.fileName = 'markdown/' + article.title.replace(/ /g, "") + '-' + article._id + '.md';
+            cos.put({
+                key: article.fileName,
+                content: content,
+                success: function (data) {
+                    article.save(function (err, article) {
+                        if (err) {
+                            console.log(err);
+                            res.json({isSuccess: false, results: err});
+                        } else {
+                            res.json({isSuccess: true, results: article});
+                        }
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                    res.json({isSuccess: false, results: err});
+                },
+
+            })
+
+        }
+    });
 }
