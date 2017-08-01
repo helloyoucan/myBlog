@@ -37,4 +37,7 @@ module.exports = function (app) {
     app.post('/signin', User.signin);
     app.get('/captcha', User.captcha);
     app.get('/logout', User.logout);
+    app.get('/ba', function (req, res) {
+        res.sendfile('./public/index.html');
+    });
 }
