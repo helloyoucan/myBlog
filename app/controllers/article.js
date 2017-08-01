@@ -171,7 +171,7 @@ exports.getContent = function (req, res) {
     cos.get({
         key: fileName,
         success: function (data) {
-            res.json({isSuccess: true, content: markdown.toHTML(data)});
+            res.json({isSuccess: true, content: data});
         },
         error: function () {
 
