@@ -4,6 +4,8 @@ var domNav = document.getElementsByTagName('nav')[0],
     searchVal = m$.getById('searchVal'),
     searchAct = m$.getById('searchAct'),
     per_info = m$.getByClass('per-info')[0],
+    tag_all = m$.getById('tag-all'),
+    loading = m$.getById('loading'),
     page = {
         keyword: '',
         currentPage: 1,//当前页
@@ -33,10 +35,23 @@ m$.addEvent(searchAct, 'click', function (e) {
         currentPage: 1,
         currentNum: 10,
     };
-    articles_list[0].getElementsByTagName('ul')[0].innerHTML = '';
-    getArticle();
+    getArticle(false);
 });
-function getArticle() {
+m$.addEvent(tag_all, 'click', function () {
+    searchVal.value = '';
+    page = {
+        keyword: '',
+        currentPage: 1,
+        currentNum: 10,
+    }
+    getArticle(false);
+})
+function getArticle(isAppend) {
+    isAppend = isAppend == undefined ? true : isAppend;
+    if (!isAppend) {
+        articles_list[0].getElementsByTagName('ul')[0].innerHTML = '';
+        loading.style.display = 'block';
+    }
     m$.post({
         url: '/article/list',
         data: page,
@@ -55,6 +70,9 @@ function getArticle() {
                     });
                     htmlStr += '<span class="a-read">' + value.read + '</span>' + '</div></div></li>';
                 });
+                if (!isAppend) {
+                    loading.style.display = 'none';
+                }
                 articles_list[0].getElementsByTagName('ul')[0].insertAdjacentHTML('beforeend', htmlStr);
                 if (response.articlesList.length < 10) {
                     btn_get_more.disabled = 'disabled';

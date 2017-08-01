@@ -38,7 +38,7 @@ html
                             input(type="text" id="searchVal" placeholder="Search")
                             span(id="searchAct" style="background-image: url(img/search.png);")
                         div.tags-list
-                            span(class="tag active") 全部
+                            span(class="tag active" id="tag-all") 全部
                             //- span(class="tag") 查找结果
                         div.articles-list
                             ul
@@ -55,6 +55,8 @@ html
                                                     span.a-tag #{t}
                                                 span.a-read #{a.read}
                                                 // span.a-comments #{a.comments}
+                            div#loading
+                                img(src="/img/loading.gif")
                             if articles.length < 10
                                 button(id="btn-get-more" type="button" disabled="disabled" class="get-more-article") 已加载全部(#{articles.length + '/' + list.total})
                             else

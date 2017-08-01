@@ -38,6 +38,6 @@ module.exports = function (app) {
     app.get('/captcha', User.captcha);
     app.get('/logout', User.logout);
     app.get('/ba', function (req, res) {
-        res.sendfile('./public/index.html');
+        res.sendfile('./public/ba.html');
     });
 }

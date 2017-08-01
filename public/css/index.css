@@ -184,6 +184,16 @@ button.get-more-article {
     transition: background-color ease .3s;
 }
 
+#loading {
+    display: none;
+    padding-top: 20px;
+}
+
+#loading img {
+    width: 45px;
+    height: 45px;
+}
+
 button.get-more-article:hover {
     background-color: rgb(72, 196, 189);
 }
