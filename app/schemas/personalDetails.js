@@ -3,7 +3,6 @@ var PersonalDetailsSchema = new mongoose.Schema({
     iconUrl: String,
     name: String,
     emails: [String],
-    github: String,
     others: [{
         name: String,
         url: String,

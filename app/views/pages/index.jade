@@ -30,8 +30,6 @@ html
                                     li #{e}
                         div.pi-other
                             ul.fixclear
-                                li
-                                    a(class="pi-other-item" target="_blank" href="#{message.github}" style="background-image: url(img/github.png);") Github
                                 each o in message.others
                                     li
                                         a(class="pi-other-item" target="_blank" href="#{o.url}" style="background-image: url(#{o.iconUrl});") #{o.name}
