@@ -36,7 +36,7 @@ exports.article = function (req, res) {
                                 cos.get({
                                     key: article.fileName,
                                     success: function (data) {
-                                        article.content = data;
+                                        article.content = markdown.toHTML(data);
                                         res.render('article', {
                                             article: article,
                                         });
@@ -149,7 +149,7 @@ exports.getById = function (req, res) {
                         cos.get({
                             key: article.fileName,
                             success: function (data) {
-                                article.content = data;
+                                article.content = markdown.toHTML(data);
                                 res.json({isSuccess: true, "results": article});
                             },
                             error: function (err) {
@@ -171,7 +171,7 @@ exports.getContent = function (req, res) {
     cos.get({
         key: fileName,
         success: function (data) {
-            res.json({isSuccess: true, content: data});
+            res.json({isSuccess: true, content: markdown.toHTML(data)});
         },
         error: function () {
 
