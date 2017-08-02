@@ -7,6 +7,7 @@ html
         title #{article.title}
         link(rel="stylesheet" href="../css/public.css")
         link( rel="stylesheet" href="../css/article.css")
+        link( rel="stylesheet" href="../css/mavonEditor.css")
     body
         include ../includes/nav.jade
         div.content.fixclear
@@ -18,7 +19,7 @@ html
                 div.a-msg 更新时间&nbsp;:&nbsp;#{article.meta.updateAt.toLocaleString().replace('T', ' ').slice(0, -5)}
                     span.a-read 阅读&nbsp;:&nbsp;#{article.read}
                     span.a-comments 评论&nbsp;:&nbsp;#{article.comments.length}
-                div.a-content !{article.content}
+                div.a-content.markdown-body !{article.content}
                 div.end --完
                 div.comment
                     textarea(rows="3" id="comment") 留言
