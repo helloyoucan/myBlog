@@ -79,16 +79,16 @@ exports.save = function (req, res) {
     }
 }
 exports.uploadImg = function (req, res) {
-    var file = req.file;
-    if (file) {
-        console.log(req.file)
-        console.log('文件类型：%s', file.mimetype);
-        console.log('原始文件名：%s', file.originalname);
-        console.log('文件大小：%s', file.size);
-        console.log('文件保存路径：%s', file.path);
+    var files = req.files;
+    var paths = [];
+    files.forEach(function (value, index, arr) {
+        paths.push('http://' + req.headers.host + value.path.replace(/\\/g, "/").replace("public", ""))
+    });
+    if (files.length > 0) {
+        console.log(files)
         res.json({
             isSuccess: 'true',
-            path: 'http://' + req.headers.host + file.path.replace(/\\/g, "/").replace("public", "")
+            paths: paths,
         });
     } else {
         res.json({
