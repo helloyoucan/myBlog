@@ -220,6 +220,7 @@ button.get-more-article:active {
 
     .per-info {
         position: relative !important;
+        top: 0 !important;
         float: none;
         margin: -260px auto 0;
         background-color: transparent;
