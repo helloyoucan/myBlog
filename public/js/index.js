@@ -50,8 +50,8 @@ function getArticle(isAppend) {
     isAppend = isAppend == undefined ? true : isAppend;
     if (!isAppend) {
         articles_list[0].getElementsByTagName('ul')[0].innerHTML = '';
-        loading.style.display = 'block';
     }
+    loading.style.display = 'block';
     m$.post({
         url: '/article/list',
         data: page,
@@ -70,9 +70,7 @@ function getArticle(isAppend) {
                     });
                     htmlStr += '<span class="a-read">' + value.read + '</span>' + '</div></div></li>';
                 });
-                if (!isAppend) {
-                    loading.style.display = 'none';
-                }
+                loading.style.display = 'none';
                 articles_list[0].getElementsByTagName('ul')[0].insertAdjacentHTML('beforeend', htmlStr);
                 if (response.articlesList.length < 10) {
                     btn_get_more.disabled = 'disabled';
