@@ -11,10 +11,17 @@ exports.article = function (req, res) {
             if (err) {
                 console.log(err)
             } else {
-                article.read++;
+                /*article.read++;
                 article.save(function (err, article) {
                     if (err) {
                         console.log("添加浏览次数失败" + err);
+                    }
+                });*/
+                article.update({'read':article.read++},function () {
+                    if (err) {
+                        console.log("添加浏览次数失败" + err);
+                    }else{
+                        console.log('success!');
                     }
                 });
                 Article.find({
