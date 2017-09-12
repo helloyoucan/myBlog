@@ -17,7 +17,8 @@ exports.article = function (req, res) {
                         console.log("添加浏览次数失败" + err);
                     }
                 });*/
-                article.update({'read':article.read++},function () {
+                article.read++;
+                article.update({},function () {
                     if (err) {
                         console.log("添加浏览次数失败" + err);
                     }else{
