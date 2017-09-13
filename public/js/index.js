@@ -11,7 +11,7 @@ var domNav = document.getElementsByTagName('nav')[0],
         currentPage: 1,//当前页
         currentNum: 10,//每页数量
     };
-m$.addEvent(window, 'scroll', function (e) {
+m$.addEvent(window, 'scroll', function () {
     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     if (scrollTop > 210) {
         domBack_to_top.style.display = 'block';
@@ -25,17 +25,9 @@ m$.addEvent(window, 'scroll', function (e) {
         m$.removeClass(domNav, 'show-bg');
     }
 });
-m$.addEvent(btn_get_more, 'click', function (e) {
+m$.addEvent(btn_get_more, 'click', function () {
     page.currentPage++;
     getArticle();
-});
-m$.addEvent(searchAct, 'click', function (e) {
-    page = {
-        keyword: searchVal.value,
-        currentPage: 1,
-        currentNum: 10,
-    };
-    getArticle(false);
 });
 m$.addEvent(tag_all, 'click', function () {
     searchVal.value = '';
@@ -45,7 +37,22 @@ m$.addEvent(tag_all, 'click', function () {
         currentNum: 10,
     }
     getArticle(false);
-})
+});
+m$.addEvent(searchVal,'keypress',function (e) {
+    e = e||window.event;
+    if(event.keyCode == 13){
+        searchArticle();
+    }
+});
+m$.addEvent(searchAct, 'click', searchArticle);
+function searchArticle() {
+    page = {
+        keyword: searchVal.value,
+        currentPage: 1,
+        currentNum: 10,
+    };
+    getArticle(false);
+}
 function getArticle(isAppend) {
     isAppend = isAppend == undefined ? true : isAppend;
     if (!isAppend) {
@@ -82,6 +89,7 @@ function getArticle(isAppend) {
             }
         },
         error: function (response) {
+            alert('获取文章失败！');
         }
     });
 }
