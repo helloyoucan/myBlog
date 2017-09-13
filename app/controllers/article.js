@@ -11,7 +11,8 @@ exports.article = function (req, res) {
             if (err) {
                 console.log(err)
             } else {
-                var read = article.read+1;
+                article.read++;
+                var read = article.read;
                 Article.update({'_id':article._id},{'read':read},function (err) {
                     if (err) {
                         console.log("添加浏览次数失败" + err);
