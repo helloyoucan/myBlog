@@ -47,6 +47,7 @@ article {
 .per-info,
 .content {
     background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
 }
 
 .per-info img.pi-pic {
@@ -226,6 +227,7 @@ button.get-more-article:active {
         background-color: transparent;
         color: white;
         max-width: 100%;
+        box-shadow: none;
     }
 
     a.pi-other-item:link, a.pi-other-item:visited {
@@ -258,4 +260,7 @@ button.get-more-article:active {
         border-top-width: 1px;
     }
 
+    footer {
+        margin-top: 0;
+    }
 }
