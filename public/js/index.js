@@ -31,12 +31,7 @@ m$.addEvent(btn_get_more, 'click', function () {
 });
 m$.addEvent(tag_all, 'click', function () {
     searchVal.value = '';
-    page = {
-        keyword: '',
-        currentPage: 1,
-        currentNum: 10,
-    }
-    getArticle(false);
+    searchArticle();
 });
 m$.addEvent(searchVal,'keypress',function (e) {
     e = e||window.event;
